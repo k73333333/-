@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+    </div>
+</body>
+<script>
+    Vue.component("Parent",{
+        data(){
+            return{
+                msg:"我是父组件的变量"
+            }
+        },
+        template:`
+        <div>
+        <p>这是个父组件</p>
+        <Child  :childData="msg"/>
+        </div>
+        `
+    })
+    Vue.component("Child",{
+        data(){
+            return{
+                
+            }
+        },
+        props:["childData"],
+        template:`
+        <div>
+        <p>这是个子组件</p>
+        <input type="text" v-model="childData">
+        </div>
+        `
+    })
+
+    var App ={
+        data(){
+            return{
+
+            }
+        },
+        template:`
+        <div>入口
+        <Parent/>
+        </div>
+        `
+    }
+    new Vue({
+        el:"#root",
+        data(){
+            return{
+
+            }
+        },
+        components:{
+            App
+        },
+        template:`
+        <App/>
+        `
+    })
+</script>
+</html>

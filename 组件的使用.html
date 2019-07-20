@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script>
+//全局组件
+//第一个参数组件名 第二个参数是options
+Vue.component("butn",{
+    template:`
+    <button>全局组件</button>
+    `
+})
+
+    var Vherder = {
+        template:`
+        <div>这是头部组件</div>
+        `
+    }
+    var Vaside = {
+        template:`
+        <div>这是侧边栏组件</div>
+        `
+    }
+    var Vcontent = {
+        template:`
+        <div>
+        这是内容组件
+        </div>
+        `
+    }
+    //1声明
+    var App = {
+        template:`
+        <div>我是入口组件
+                <Vherder/>
+                <Vaside/>
+                <Vcontent/>
+                <butn/>
+                
+        </div>
+        `,
+        components:{
+            Vherder,
+            Vaside,
+            Vcontent,
+        }
+    }
+    new Vue({
+        el:"#app",
+        data(){
+            return{
+
+            }
+        },
+        //2挂载
+        components:{
+            App
+        },
+        //3使用
+        template:`
+        <App/>
+        `
+    })
+</script>
+</html>

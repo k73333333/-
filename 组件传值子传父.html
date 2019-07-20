@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+    </div>
+</body>
+<script>
+    //1.在父组件中绑定自定义事件
+    //2.在子组件中触发原生的事件 在函数中使用$emit触发自定义的childHandler时间
+
+    Vue.component("Parent",{
+        data(){
+            return{
+                msg:"我是父组件的变量",
+                cdata:'111'
+            }
+        },
+        template:`
+        <div>
+        <p>这是个父组件</p>
+        <p>这是从子组件传回来的：{{cdata}}</p>
+        
+      //1.在父组件中绑定自定义事件
+        <Child  :childData="msg" @childHandler="childHandler"/>
+        //注意@childHandler="childHandler"中后面的名字在当前组件的methods中声明
+        </div>
+        `,
+        methods:{
+            //接收子组件传过来的数据
+            childHandler(val){
+                console.log(val);
+                
+                this.cdata=val;
+            }
+        }
+    })
+    Vue.component("Child",{
+        data(){
+            return{
+                huichuan:''
+            }
+        },
+        props:["childData"],
+        template:`
+        <div>
+        <p>这是个子组件</p>
+        <p>{{childData}}</p>
+        <input type="text" v-model="huichuan" @input="changeValue(huichuan)">
+        </div>
+        `,
+        methods:{
+            changeValue(val){
+                //自定义的事件一定通过this.$emit()触发
+                //emit有两个参数  emit(自定义的事件名,你传递的消息)
+                this.$emit('childHandler',val)
+            }
+        }
+    })
+
+    var App ={
+        data(){
+            return{
+
+            }
+        },
+        template:`
+        <div>入口
+        <Parent/>
+        </div>
+        `
+    }
+    new Vue({
+        el:"#root",
+        data(){
+            return{
+
+            }
+        },
+        components:{
+            App
+        },
+        template:`
+        <App/>
+        `
+    })
+</script>
+</html>

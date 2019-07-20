@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+<script>
+    //全局过滤器
+    Vue.filter("myRecerse",function(value){
+        return value.split("").reverse().join("");
+    })
+    Vue.filter("chuanZhi",function(value,arg){
+        return value+arg;
+    })
+
+    // 过滤器有两种，局部过滤器 全局过滤器
+    var App = {
+        data(){
+            return{
+                price:20,
+                msg:"hello filter",
+            }
+        },
+        template:`
+        <div>
+        <input type="number" v-model='price'/>
+        <h3>{{price|myCurrentcy}}</h3>
+        <h3>{{msg|myRecerse}}</h3>
+        <h3>{{msg|chuanZhi("传值")}}</h3>
+        </div>
+        `,
+        //局部过滤器
+        filters:{
+            //1声明过滤器
+            //2使用{{数据|过滤器名字}}
+            myCurrentcy:function(value){
+                return"$"+value
+            }
+        }
+    }
+new Vue({
+    el:"#root",
+    data(){
+        return{
+
+        }
+    },
+    components:{
+        App
+    },
+    template:`<App/>`
+})
+</script>
+</html>

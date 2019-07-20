@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="qiehuan(1)">1</button>
+        <button @click="qiehuan(2)">2</button>
+        <button @click="qiehuan(3)">3</button>
+        <keep-alive>
+        <component :is="componentId"></component>
+        </keep-alive>
+    </div>
+    <script>
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                componentId:'my-header-1'
+            }
+        },
+        components:{
+            'my-header-1':{
+                template:'<div><h1>组件1</h1></div>'
+            },
+            'my-header-2':{
+                template:'<div><h1>组件2</h1></div>'
+            },
+            'my-header-3':{
+                template:'<div><h1>组件3</h1></div>'
+            }
+        },
+        methods: {
+            qiehuan:function(id){
+                this.componentId = 'my-header-'+id
+            }
+        },
+    })
+    </script>
+</body>
+</html>
